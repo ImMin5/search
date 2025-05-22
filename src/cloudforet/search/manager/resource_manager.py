@@ -29,6 +29,10 @@ class ResourceManager(BaseManager):
         db_name, collection_name = self._get_collection_and_db_name(resource_type)
         skip_count = page * limit
 
+        _LOGGER.debug(
+            f"[search] resource_type: {resource_type}, find_filter: {find_filter}, projection: {projection}, limit: {limit}, page: {page}"
+        )
+
         results = list(
             self.client[db_name][collection_name].find(
                 filter=find_filter, projection=projection, limit=limit, skip=skip_count
